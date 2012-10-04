@@ -1,10 +1,6 @@
 #include "testApp.h"
 
 void testApp::setup(){	
-	//ofSetVerticalSync(true);
-	ofBackground(0, 0, 0);
-
-	
 	cam.initGrabber(640,480);
 	
 	colorsOfMovement.setup(ofRectangle(0,0,640,480), ofVec2f(640,480), 30);
