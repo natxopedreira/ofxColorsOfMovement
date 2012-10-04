@@ -28,6 +28,7 @@ static string OFXCM_FRAGMENT_SHADER = STRINGIFY(
 												uniform float brightness;
 												uniform float saturation;
 												uniform float contrast;
+												uniform float hueShift;
 												
 												uniform mat3 tone;
 												
@@ -55,6 +56,42 @@ static string OFXCM_FRAGMENT_SHADER = STRINGIFY(
 													return conColor;
 												}
 												
+												vec3 setHueShift(vec3 color, float shift){
+													shift *= 6.28318531; //normalize to two pi
+													
+													const vec3  kRGBToYPrime = vec3 (0.299, 0.587, 0.114);
+													const vec3  kRGBToI     = vec3 (0.596, -0.275, -0.321);
+													const vec3  kRGBToQ     = vec3 (0.212, -0.523, 0.311);
+													
+													const vec3  kYIQToR   = vec3 (1.0, 0.956, 0.621);
+													const vec3  kYIQToG   = vec3 (1.0, -0.272, -0.647);
+													const vec3  kYIQToB   = vec3 (1.0, -1.107, 1.704);
+													
+													// Convert to YIQ
+													float   YPrime  = dot (color, kRGBToYPrime);
+													float   I      = dot (color, kRGBToI);
+													float   Q      = dot (color, kRGBToQ);
+													
+													// Calculate the hue and chroma
+													float   hue     = atan (Q, I);
+													float   chroma  = sqrt (I * I + Q * Q);
+													
+													// Make the user's adjustments
+													hue += shift;
+													
+													// Convert back to YIQ
+													Q = chroma * sin (hue);
+													I = chroma * cos (hue);
+													
+													// Convert back to RGB
+													vec3 yIQ   = vec3 (YPrime, I, Q);
+													color.r = dot (yIQ, kYIQToR);
+													color.g = dot (yIQ, kYIQToG);
+													color.b = dot (yIQ, kYIQToB);
+													
+													return color;
+												}
+												
 												void main(void){
 													vec3 r = texture2D(texR, gl_TexCoord[0].st).rgb;
 													vec3 g = texture2D(texG, gl_TexCoord[0].st).rgb;
@@ -63,14 +100,17 @@ static string OFXCM_FRAGMENT_SHADER = STRINGIFY(
 													r = setGamma(r, gamma);
 													r = setBrightnessSaturationContrast(r, brightness, saturation, contrast);
 													r = setTone(r, tone);
+													r = setHueShift(r, hueShift);
 													
 													g = setGamma(g, gamma);
 													g = setBrightnessSaturationContrast(g, brightness, saturation, contrast);
 													g = setTone(g, tone);
+													g = setHueShift(g, hueShift);
 													
 													b = setGamma(b, gamma);
 													b = setBrightnessSaturationContrast(b, brightness, saturation, contrast);
 													b = setTone(b, tone);
+													b = setHueShift(b, hueShift);
 													
 													vec4 color = vec4(r.r, g.g, b.b, 1.0);
 													
@@ -117,6 +157,9 @@ public:
 	void setContrast(float value);
 	float getContrast();
 	
+	void setHueShift(float value);
+	float getHueShift();
+	
 private:
 	bool isSetup;
 	ofShader shader;
@@ -134,6 +177,7 @@ private:
 	float brightness;
 	float saturation;
 	float contrast;
+	float hueShift;
 	float* tone;
 	
 	int index;	

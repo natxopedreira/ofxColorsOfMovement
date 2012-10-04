@@ -6,7 +6,11 @@ void testApp::setup(){
 	colorsOfMovement.setup(ofRectangle(0,0, 640, 480), ofVec2f(640,480), 30);
 	
 	gui.setup("Colors of Movement");
-		
+	
+	ofxLabel * mixLabel = new ofxLabel();
+	mixLabel->setup("Channel Mixer", "Channel Mixer", 200, 40);
+	gui.add(mixLabel);
+	
 	ofxIntSlider * bufferSize = new ofxIntSlider("Buffer Size", 30, 1, 300);
 	bufferSize->addListener(this, &testApp::onGuiIntChange);
 	gui.add(bufferSize);
@@ -23,6 +27,10 @@ void testApp::setup(){
 	blue->addListener(this, &testApp::onGuiFloatChange);
 	gui.add(blue);
 	
+	ofxLabel * preLabel = new ofxLabel();
+	preLabel->setup("Pre Effects", "Pre Effects", 200, 40);
+	gui.add(preLabel);
+	
 	ofxFloatSlider * gamma = new ofxFloatSlider("Gamma", 1, 0, 5);
 	gamma->addListener(this, &testApp::onGuiFloatChange);
 	gui.add(gamma);
@@ -37,7 +45,11 @@ void testApp::setup(){
 	
 	ofxFloatSlider * contrast = new ofxFloatSlider("Contrast", 1, 0, 5);
 	contrast->addListener(this, &testApp::onGuiFloatChange);
-	gui.add(contrast);	
+	gui.add(contrast);
+	
+	ofxFloatSlider * hueShift = new ofxFloatSlider("Hue Shift", 0, -1, 1);
+	hueShift->addListener(this, &testApp::onGuiFloatChange);
+	gui.add(hueShift);
 	
 }
 
@@ -65,5 +77,6 @@ void testApp::onGuiFloatChange(float & value){
 	colorsOfMovement.setBrightness(gui.getFloatSlider("Brightness"));
 	colorsOfMovement.setSaturation(gui.getFloatSlider("Saturation"));
 	colorsOfMovement.setContrast(gui.getFloatSlider("Contrast"));
+	colorsOfMovement.setHueShift(gui.getFloatSlider("Hue Shift"));
 }
 

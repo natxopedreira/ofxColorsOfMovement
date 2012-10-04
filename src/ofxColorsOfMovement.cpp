@@ -71,6 +71,7 @@ void ofxColorsOfMovement::draw(){
 	shader.setUniform1f("brightness", brightness );
 	shader.setUniform1f("saturation", saturation );
 	shader.setUniform1f("contrast", contrast );
+	shader.setUniform1f("hueShift", hueShift );
 	// there is no built in "setUniform" for mat3x3 in ofShader
 	glUniformMatrix3fv(glGetUniformLocation(shader.getProgram(), "tone"), 1, GL_FALSE, tone);
 
@@ -185,6 +186,13 @@ void ofxColorsOfMovement::setContrast(float value){
 }
 float ofxColorsOfMovement::getContrast(){
 	return contrast;
+}
+
+void ofxColorsOfMovement::setHueShift(float value){
+	hueShift = value;
+}
+float ofxColorsOfMovement::getHueShift(){
+	return hueShift;
 }
 
 void ofxColorsOfMovement::allocate(){
