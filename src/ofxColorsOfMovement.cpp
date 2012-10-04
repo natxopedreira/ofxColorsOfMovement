@@ -2,12 +2,12 @@
 
 ofxColorsOfMovement::ofxColorsOfMovement():
 index(-1),
-rIndex(0),
-gIndex(0),
-bIndex(0),
+rPosition(0),
+gPosition(0),
+bPosition(0),
 gamma(1.0),
 brightness(1.0),
-saturaion(1.0),
+saturation(1.0),
 contrast(1.0),
 tone(new float[9]),
 isSetup(false)
@@ -38,7 +38,6 @@ void ofxColorsOfMovement::setup(ofRectangle rectangle, ofVec2f texureSize, unsig
 	setTextureSize(texureSize, false);
 	setBufferSize(bufferSize);
 }
-
 void ofxColorsOfMovement::addFrame(ofBaseDraws * frame){
 	if(!isSetup || !buffer.size()) return;
 	
@@ -49,16 +48,15 @@ void ofxColorsOfMovement::addFrame(ofBaseDraws * frame){
 	frame->draw(0, 0, texureSize.x, texureSize.y);
 	buffer[index]->end();
 	
-	internalRIndex = index + rIndex;
-	internalRIndex = internalRIndex % buffer.size();
+	float last = (float)(buffer.size()-1);
+	internalRIndex = index - int(rPosition * last);
+	internalGIndex = index - int(gPosition * last);
+	internalBIndex = index - int(bPosition * last);
 	
-	internalGIndex = index + gIndex;
-	internalGIndex = internalGIndex % buffer.size();
-	
-	internalBIndex = index + bIndex;
-	internalBIndex = internalBIndex % buffer.size();
+	if(internalRIndex < 0) internalRIndex += buffer.size();
+	if(internalGIndex < 0) internalGIndex += buffer.size();
+	if(internalBIndex < 0) internalBIndex += buffer.size();
 }
-
 void ofxColorsOfMovement::draw(){
 	if(!isSetup || !buffer.size()) return;
 	
@@ -71,9 +69,9 @@ void ofxColorsOfMovement::draw(){
 	shader.setUniformTexture("texB", buffer[internalBIndex]->getTextureReference(), 2 );
 	shader.setUniform1f("gamma", gamma );
 	shader.setUniform1f("brightness", brightness );
-	shader.setUniform1f("saturation", saturaion );
+	shader.setUniform1f("saturation", saturation );
 	shader.setUniform1f("contrast", contrast );
-	// there is no built in "setUniform" format3x3 in ofShader
+	// there is no built in "setUniform" for mat3x3 in ofShader
 	glUniformMatrix3fv(glGetUniformLocation(shader.getProgram(), "tone"), 1, GL_FALSE, tone);
 
 	vbo.draw();
@@ -84,6 +82,7 @@ void ofxColorsOfMovement::draw(){
 }
 
 void ofxColorsOfMovement::setRectangle(ofRectangle rectangle){
+	if(this->rectangle == rectangle) return;
 	this->rectangle = rectangle;
 	
 	vbo.clearVertices();
@@ -100,6 +99,7 @@ ofRectangle ofxColorsOfMovement::getRectangle(){
 }
 
 void ofxColorsOfMovement::setTextureSize(ofVec2f texureSize, bool reallocate){
+	if(this->texureSize == texureSize) return;
 	this->texureSize = texureSize;
 	
 	float coordWidth = (float)texureSize.x / ofNextPow2(texureSize.x);
@@ -119,8 +119,8 @@ ofVec2f ofxColorsOfMovement::getTextureSize(){
 	return texureSize;
 }
 
-
 void ofxColorsOfMovement::setBufferSize(unsigned int bufferSize) {
+	if(this->bufferSize == bufferSize) return;
 	index = -1;
 	this->bufferSize = bufferSize;
 	
@@ -131,32 +131,60 @@ void ofxColorsOfMovement::setBufferSize(unsigned int bufferSize) {
 	
 	allocate();
 }
-
 int	ofxColorsOfMovement::getBufferSize(){
 	return buffer.size();
 }
 
-void ofxColorsOfMovement::setRIndex(unsigned int index){
-	if(index >= getBufferSize() - 1) index = getBufferSize() - 1;
-	rIndex = index;
+void ofxColorsOfMovement::setRPosition(float position){
+	position = ofClamp(position, 0, 1);
+	rPosition = position;
 }
-void ofxColorsOfMovement::setGIndex(unsigned int index){
-	if(index >= getBufferSize() - 1) index = getBufferSize() - 1;
-	gIndex = index;
-}
-void ofxColorsOfMovement::setBIndex(unsigned int index){
-	if(index >= getBufferSize() - 1) index = getBufferSize() - 1;
-	bIndex = index;
+float ofxColorsOfMovement::getRPosition(){
+	return rPosition;
 }
 
-int ofxColorsOfMovement::getRIndex(){
-	return rIndex;
+void ofxColorsOfMovement::setGPosition(float position){
+	position = ofClamp(position, 0, 1);
+	gPosition = position;
 }
-int ofxColorsOfMovement::getGIndex(){
-	return gIndex;
+float ofxColorsOfMovement::getGPosition(){
+	return gPosition;
 }
-int	ofxColorsOfMovement::getBIndex(){
-	return bIndex;
+
+void ofxColorsOfMovement::setBPosition(float position){
+	position = ofClamp(position, 0, 1);
+	bPosition = position;
+}
+float	ofxColorsOfMovement::getBPosition(){
+	return bPosition;
+}
+
+void ofxColorsOfMovement::setGamma(float value){
+	gamma = value;
+}
+float ofxColorsOfMovement::getGamma(){
+	return gamma;
+}
+
+void ofxColorsOfMovement::setBrightness(float value){
+	brightness = value;
+}
+float ofxColorsOfMovement::getBrightness(){
+	return brightness;
+}
+
+void ofxColorsOfMovement::setSaturation(float value){
+	saturation = value;
+}
+float ofxColorsOfMovement::getSaturation(){
+	return saturation;
+}
+
+void ofxColorsOfMovement::setContrast(float value){
+	contrast = value;
+}
+float ofxColorsOfMovement::getContrast(){
+	return contrast;
 }
 
 void ofxColorsOfMovement::allocate(){
@@ -175,7 +203,6 @@ void ofxColorsOfMovement::beginNormalized(){
 	if(ofGetUsingArbTex()) ofDisableArbTex();
 	if(!ofGetUsingNormalizedTexCoords()) ofEnableNormalizedTexCoords();
 }
-
 void ofxColorsOfMovement::endNormalized(){
 	if(ofGetUsingArbTex()) ofEnableArbTex();
 	if(!ofGetUsingNormalizedTexCoords()) ofDisableNormalizedTexCoords();

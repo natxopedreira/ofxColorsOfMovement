@@ -96,15 +96,26 @@ public:
 	void setRectangle(ofRectangle rectangle);
 	ofRectangle getRectangle();
 	
-	void setRIndex(unsigned int index);
-	int getRIndex();
+	void setRPosition(float postion);
+	float getRPosition();
 	
-	void setGIndex(unsigned int index);
-	int getGIndex();
+	void setGPosition(float postion);
+	float getGPosition();
 	
-	void setBIndex(unsigned int index);
-	int	getBIndex();
+	void setBPosition(float postion);
+	float getBPosition();
 	
+	void setGamma(float value);
+	float getGamma();
+	
+	void setBrightness(float value);
+	float getBrightness();
+	
+	void setSaturation(float value);
+	float getSaturation();
+	
+	void setContrast(float value);
+	float getContrast();
 	
 private:
 	bool isSetup;
@@ -112,15 +123,16 @@ private:
 	ofVboMesh vbo;
 	vector <ofFbo *> buffer;	
 	
+	ofRectangle rectangle;
 	ofVec2f texureSize;
 	unsigned int bufferSize;
-	ofRectangle rectangle;
-	int rIndex;
-	int gIndex;
-	int bIndex;
+	
+	float rPosition;
+	float gPosition;
+	float bPosition;
 	float gamma;
 	float brightness;
-	float saturaion;
+	float saturation;
 	float contrast;
 	float* tone;
 	
