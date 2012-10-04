@@ -1,13 +1,16 @@
 #include "testApp.h"
 
 void testApp::setup(){	
-	ofSetVerticalSync(true);
+	//ofSetVerticalSync(true);
 	ofBackground(0, 0, 0);
-	ofSetFullscreen(true);
+
 	
 	cam.initGrabber(640,480);
 	
-	colorsOfMovement.setup(640, 480);
+	colorsOfMovement.setup(ofRectangle(0,0,640,480), ofVec2f(640,480), 30);
+	colorsOfMovement.setRIndex(0);
+	colorsOfMovement.setGIndex(14);
+	colorsOfMovement.setBIndex(29);
 }
 
 void testApp::update(){
@@ -20,4 +23,5 @@ void testApp::update(){
 
 void testApp::draw(){
 	colorsOfMovement.draw();
+	ofDrawBitmapString(ofToString(ofGetFrameRate()),20,20);
 }

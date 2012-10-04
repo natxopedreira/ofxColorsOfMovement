@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ColorsOfMovement.h"
+#include "ofxColorsOfMovement.h"
 
 class testApp : public ofBaseApp{
 public:
@@ -11,5 +11,5 @@ public:
 	void draw();
 	
 	ofVideoGrabber cam;
-	ColorsOfMovement colorsOfMovement;
+	ofxColorsOfMovement colorsOfMovement;
 };
