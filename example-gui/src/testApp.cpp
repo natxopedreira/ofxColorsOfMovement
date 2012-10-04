@@ -3,7 +3,7 @@
 void testApp::setup(){
 	cam.initGrabber(640, 480);
 	
-	colorsOfMovement.setup(ofRectangle(0,0, 640, 480), ofVec2f(640,480), 30);
+	colorsOfMovement.setup(ofVec2f(1920,1080), 30);
 	
 	gui.setup("Colors of Movement");
 	
@@ -61,8 +61,9 @@ void testApp::update(){
 }
 
 void testApp::draw(){
-	colorsOfMovement.draw();
+	colorsOfMovement.getTextureReference().draw(0,0);
 	gui.draw();
+	ofDrawBitmapString(ofToString(ofGetFrameRate()), 20,20);
 }
 
 void testApp::onGuiIntChange(int & value){

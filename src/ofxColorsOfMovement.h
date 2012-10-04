@@ -119,22 +119,21 @@ static string OFXCM_FRAGMENT_SHADER = STRINGIFY(
 												}
 												);
 
-class ofxColorsOfMovement {
+class ofxColorsOfMovement : public ofBaseHasTexture {
 public:
 	ofxColorsOfMovement();
 	
-	void setup(ofRectangle rectangle, ofVec2f texSize, unsigned int bufferSize);
+	void setup(ofVec2f texSize, unsigned int bufferSize);
 	void addFrame(ofBaseDraws * frame);
-	void draw();
+	
+	ofTexture & getTextureReference();
+	void setUseTexture(bool bUseTex){};
 	
 	void setTextureSize(ofVec2f texureSize, bool reallocate = true);
 	ofVec2f getTextureSize();
 	
 	void setBufferSize(unsigned int bufferSize);
 	int	getBufferSize();
-	
-	void setRectangle(ofRectangle rectangle);
-	ofRectangle getRectangle();
 	
 	void setRPosition(float postion);
 	float getRPosition();
@@ -164,9 +163,9 @@ private:
 	bool isSetup;
 	ofShader shader;
 	ofVboMesh vbo;
+	ofFbo fbo;
 	vector <ofFbo *> buffer;	
 	
-	ofRectangle rectangle;
 	ofVec2f texureSize;
 	unsigned int bufferSize;
 	

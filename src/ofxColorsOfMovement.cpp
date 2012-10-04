@@ -31,10 +31,9 @@ isSetup(false)
 	tone[8] = 1.0;
 }
 
-void ofxColorsOfMovement::setup(ofRectangle rectangle, ofVec2f texureSize, unsigned int bufferSize){
+void ofxColorsOfMovement::setup(ofVec2f texureSize, unsigned int bufferSize){
 	isSetup = true;
 	
-	setRectangle(rectangle);
 	setTextureSize(texureSize, false);
 	setBufferSize(bufferSize);
 }
@@ -56,14 +55,10 @@ void ofxColorsOfMovement::addFrame(ofBaseDraws * frame){
 	if(internalRIndex < 0) internalRIndex += buffer.size();
 	if(internalGIndex < 0) internalGIndex += buffer.size();
 	if(internalBIndex < 0) internalBIndex += buffer.size();
-}
-void ofxColorsOfMovement::draw(){
-	if(!isSetup || !buffer.size()) return;
 	
+	fbo.begin();
 	beginNormalized();
-	
-	shader.begin();
-	
+	shader.begin();	
 	shader.setUniformTexture("texR", buffer[internalRIndex]->getTextureReference(), 0 );
 	shader.setUniformTexture("texG", buffer[internalGIndex]->getTextureReference(), 1 );
 	shader.setUniformTexture("texB", buffer[internalBIndex]->getTextureReference(), 2 );
@@ -74,29 +69,14 @@ void ofxColorsOfMovement::draw(){
 	shader.setUniform1f("hueShift", hueShift );
 	// there is no built in "setUniform" for mat3x3 in ofShader
 	glUniformMatrix3fv(glGetUniformLocation(shader.getProgram(), "tone"), 1, GL_FALSE, tone);
-
 	vbo.draw();
-	
 	shader.end();
-	
-	endNormalized();	
+	endNormalized();
+	fbo.end();
 }
 
-void ofxColorsOfMovement::setRectangle(ofRectangle rectangle){
-	if(this->rectangle == rectangle) return;
-	this->rectangle = rectangle;
-	
-	vbo.clearVertices();
-	vbo.addVertex(ofPoint(rectangle.x,rectangle.y,0));
-	vbo.addVertex(ofPoint(rectangle.x + rectangle.width,0,0));
-	vbo.addVertex(ofPoint(rectangle.x,rectangle.y + rectangle.height,0));
-	
-	vbo.addVertex(ofPoint(rectangle.x,rectangle.y + rectangle.height,0));
-	vbo.addVertex(ofPoint(rectangle.x + rectangle.width,rectangle.y,0));
-	vbo.addVertex(ofPoint(rectangle.x + rectangle.width,rectangle.y + rectangle.height,0));
-}
-ofRectangle ofxColorsOfMovement::getRectangle(){
-	return rectangle;
+ofTexture & ofxColorsOfMovement::getTextureReference(){
+	return fbo.getTextureReference();
 }
 
 void ofxColorsOfMovement::setTextureSize(ofVec2f texureSize, bool reallocate){
@@ -106,6 +86,7 @@ void ofxColorsOfMovement::setTextureSize(ofVec2f texureSize, bool reallocate){
 	float coordWidth = (float)texureSize.x / ofNextPow2(texureSize.x);
 	float coordHeight = (float)texureSize.y / ofNextPow2(texureSize.y);
 	
+	vbo.clearTexCoords();
 	vbo.addTexCoord(ofVec2f(0,0));
 	vbo.addTexCoord(ofVec2f(coordWidth,0));
 	vbo.addTexCoord(ofVec2f(0,coordHeight));
@@ -113,6 +94,15 @@ void ofxColorsOfMovement::setTextureSize(ofVec2f texureSize, bool reallocate){
 	vbo.addTexCoord(ofVec2f(0,coordHeight));
 	vbo.addTexCoord(ofVec2f(coordWidth,0));
 	vbo.addTexCoord(ofVec2f(coordWidth,coordHeight));
+	
+	vbo.clearVertices();
+	vbo.addVertex(ofPoint(0,0,0));
+	vbo.addVertex(ofPoint(texureSize.x,0,0));
+	vbo.addVertex(ofPoint(0,texureSize.y,0));
+	
+	vbo.addVertex(ofPoint(0,texureSize.y,0));
+	vbo.addVertex(ofPoint(texureSize.x,0,0));
+	vbo.addVertex(ofPoint(texureSize.x,texureSize.y,0));
 	
 	if(reallocate) allocate();
 }
@@ -197,6 +187,8 @@ float ofxColorsOfMovement::getHueShift(){
 
 void ofxColorsOfMovement::allocate(){
 	beginNormalized();
+	
+	fbo.allocate(texureSize.x, texureSize.y);
 	
 	for (int i = 0; i < bufferSize; i++) {
 		ofFbo * frame = new ofFbo();
