@@ -1,0 +1,3 @@
+ofxColorsOfMovement
+ofxGui
+ofxXmlSettings
