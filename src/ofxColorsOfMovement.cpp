@@ -53,6 +53,82 @@ void ofxColorsOfMovement::setup(ofVec2f texureSize, unsigned int bufferSize){
 	
 	setTextureSize(texureSize, false);
 	setBufferSize(bufferSize);
+	
+	#ifndef OFXCM_DISABLE_DEFAULT_GUI
+	gui.setup("Colors of Movement", "ColorsOfMovement.xml");
+	ofxLabel * mixLabel = new ofxLabel();
+	mixLabel->setup("Channel Mixer", "Channel Mixer", 200, 40);
+	gui.add(mixLabel);
+	
+	ofxIntSlider * buffer = new ofxIntSlider("Buffer Size", 30, 1, 300);
+	buffer->addListener(this, &ofxColorsOfMovement::onGuiIntChange);
+	gui.add(buffer);
+	
+	ofxFloatSlider * red = new ofxFloatSlider("Red Position", 0, 0, 1);
+	red->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	gui.add(red);
+	
+	ofxFloatSlider * green = new ofxFloatSlider("Green Position", 0, 0, 1);
+	green->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	gui.add(green);
+	
+	ofxFloatSlider * blue = new ofxFloatSlider("Blue Position", 0, 0, 1);
+	blue->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	gui.add(blue);
+	
+	
+	ofxLabel * preLabel = new ofxLabel();
+	preLabel->setup("Pre Effects", "Pre Effects", 200, 40);
+	gui.add(preLabel);
+	
+	ofxFloatSlider * pre_gamma = new ofxFloatSlider("Pre Gamma", 1, 0, 5);
+	pre_gamma->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	gui.add(pre_gamma);
+	
+	ofxFloatSlider * pre_brightness = new ofxFloatSlider("Pre Brightness", 1, 0, 5);
+	pre_brightness->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	gui.add(pre_brightness);
+	
+	ofxFloatSlider * pre_saturation = new ofxFloatSlider("Pre Saturation", 1, 0, 5);
+	pre_saturation->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	gui.add(pre_saturation);
+	
+	ofxFloatSlider * pre_contrast = new ofxFloatSlider("Pre Contrast", 1, 0, 5);
+	pre_contrast->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	gui.add(pre_contrast);
+	
+	ofxFloatSlider * pre_hueShift = new ofxFloatSlider("Pre Hue Shift", 0, -1, 1);
+	pre_hueShift->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	gui.add(pre_hueShift);
+	
+	
+	
+	ofxLabel * postLabel = new ofxLabel();
+	postLabel->setup("Post Effects", "Post Effects", 200, 40);
+	gui.add(postLabel);
+	
+	ofxFloatSlider * post_gamma = new ofxFloatSlider("Post Gamma", 1, 0, 5);
+	post_gamma->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	gui.add(post_gamma);
+	
+	ofxFloatSlider * post_brightness = new ofxFloatSlider("Post Brightness", 1, 0, 5);
+	post_brightness->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	gui.add(post_brightness);
+	
+	ofxFloatSlider * post_saturation = new ofxFloatSlider("Post Saturation", 1, 0, 5);
+	post_saturation->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	gui.add(post_saturation);
+	
+	ofxFloatSlider * post_contrast = new ofxFloatSlider("Post Contrast", 1, 0, 5);
+	post_contrast->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	gui.add(post_contrast);
+	
+	ofxFloatSlider * post_hueShift = new ofxFloatSlider("Post Hue Shift", 0, -1, 1);
+	post_hueShift->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	gui.add(post_hueShift);
+	
+	gui.loadFromFile("ColorsOfMovement.xml");
+	#endif
 }
 void ofxColorsOfMovement::addFrame(ofBaseDraws * frame){
 	if(!isSetup || !buffer.size()) return;
@@ -264,3 +340,31 @@ void ofxColorsOfMovement::endNormalized(){
 	if(ofGetUsingArbTex()) ofEnableArbTex();
 	if(!ofGetUsingNormalizedTexCoords()) ofDisableNormalizedTexCoords();
 }
+
+#ifndef OFXCM_DISABLE_DEFAULT_GUI
+void ofxColorsOfMovement::drawGui(){
+	gui.draw();
+	
+}
+void ofxColorsOfMovement::onGuiIntChange(int & value){
+	setBufferSize(gui.getIntSlider("Buffer Size"));
+}
+
+void ofxColorsOfMovement::onGuiFloatChange(float & value){
+	setRPosition(gui.getFloatSlider("Red Position"));
+	setGPosition(gui.getFloatSlider("Green Position"));
+	setBPosition(gui.getFloatSlider("Blue Position"));
+	
+	setPreGamma(gui.getFloatSlider("Pre Gamma"));
+	setPreBrightness(gui.getFloatSlider("Pre Brightness"));
+	setPreSaturation(gui.getFloatSlider("Pre Saturation"));
+	setPreContrast(gui.getFloatSlider("Pre Contrast"));
+	setPreHueShift(gui.getFloatSlider("Pre Hue Shift"));
+	
+	setPostGamma(gui.getFloatSlider("Post Gamma"));
+	setPostBrightness(gui.getFloatSlider("Post Brightness"));
+	setPostSaturation(gui.getFloatSlider("Post Saturation"));
+	setPostContrast(gui.getFloatSlider("Post Contrast"));
+	setPostHueShift(gui.getFloatSlider("Post Hue Shift"));
+}
+#endif
