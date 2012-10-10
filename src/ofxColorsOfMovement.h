@@ -23,14 +23,19 @@ static string OFXCM_FRAGMENT_SHADER = STRINGIFY(
 												uniform sampler2D texG;
 												uniform sampler2D texB;
 												
-												uniform float gamma;
+												uniform float pre_gamma;												
+												uniform float pre_brightness;
+												uniform float pre_saturation;
+												uniform float pre_contrast;
+												uniform float pre_hueShift;
+												uniform mat3 pre_tone;
 												
-												uniform float brightness;
-												uniform float saturation;
-												uniform float contrast;
-												uniform float hueShift;
-												
-												uniform mat3 tone;
+												uniform float post_gamma;
+												uniform float post_brightness;
+												uniform float post_saturation;
+												uniform float post_contrast;
+												uniform float post_hueShift;
+												uniform mat3 post_tone;
 												
 												vec3 setTone(vec3 color, mat3 matrix){
 													return color * matrix;
@@ -45,7 +50,8 @@ static string OFXCM_FRAGMENT_SHADER = STRINGIFY(
 													const float AvgLumG = 0.5;
 													const float AvgLumB = 0.5;
 													
-													const vec3 LumCoeff = vec3(0.2125, 0.7154, 0.0721);
+													//const vec3 LumCoeff = vec3(0.2125, 0.7154, 0.0721);
+													const vec3 LumCoeff = vec3(0.3333, 0.3333, 0.3333);
 													
 													vec3 AvgLumin = vec3(AvgLumR, AvgLumG, AvgLumB);
 													vec3 brtColor = color * brightness;
@@ -53,7 +59,9 @@ static string OFXCM_FRAGMENT_SHADER = STRINGIFY(
 													vec3 satColor = mix(intensity, brtColor, saturation);
 													vec3 conColor = mix(AvgLumin, satColor, contrast);
 													
-													return conColor;
+													vec3 finalColor = clamp(conColor, vec3(0.0), vec3(1.0));
+													
+													return finalColor;
 												}
 												
 												vec3 setHueShift(vec3 color, float shift){
@@ -97,22 +105,29 @@ static string OFXCM_FRAGMENT_SHADER = STRINGIFY(
 													vec3 g = texture2D(texG, gl_TexCoord[0].st).rgb;
 													vec3 b = texture2D(texB, gl_TexCoord[0].st).rgb;
 													
-													r = setGamma(r, gamma);
-													r = setBrightnessSaturationContrast(r, brightness, saturation, contrast);
-													r = setTone(r, tone);
-													r = setHueShift(r, hueShift);
+													r = setGamma(r, pre_gamma);
+													r = setBrightnessSaturationContrast(r, pre_brightness, pre_saturation, pre_contrast);
+													r = setTone(r, pre_tone);
+													r = setHueShift(r, pre_hueShift);
 													
-													g = setGamma(g, gamma);
-													g = setBrightnessSaturationContrast(g, brightness, saturation, contrast);
-													g = setTone(g, tone);
-													g = setHueShift(g, hueShift);
+													g = setGamma(g, pre_gamma);
+													g = setBrightnessSaturationContrast(g, pre_brightness, pre_saturation, pre_contrast);
+													g = setTone(g, pre_tone);
+													g = setHueShift(g, pre_hueShift);
 													
-													b = setGamma(b, gamma);
-													b = setBrightnessSaturationContrast(b, brightness, saturation, contrast);
-													b = setTone(b, tone);
-													b = setHueShift(b, hueShift);
+													b = setGamma(b, pre_gamma);
+													b = setBrightnessSaturationContrast(b, pre_brightness, pre_saturation, pre_contrast);
+													b = setTone(b, pre_tone);
+													b = setHueShift(b, pre_hueShift);
 													
-													vec4 color = vec4(r.r, g.g, b.b, 1.0);
+													vec3 c = vec3(r.r, g.g, b.b);
+													
+													c = setGamma(c, post_gamma);
+													c = setBrightnessSaturationContrast(c, post_brightness, post_saturation, post_contrast);
+													c = setTone(c, post_tone);
+													c = setHueShift(c, post_hueShift);
+													
+													vec4 color = vec4(c, 1.0);
 													
 													gl_FragColor = color;
 													
@@ -144,20 +159,39 @@ public:
 	void setBPosition(float postion);
 	float getBPosition();
 	
-	void setGamma(float value);
-	float getGamma();
 	
-	void setBrightness(float value);
-	float getBrightness();
+	void setPreGamma(float value);
+	float getPreGamma();
 	
-	void setSaturation(float value);
-	float getSaturation();
+	void setPreBrightness(float value);
+	float getPreBrightness();
 	
-	void setContrast(float value);
-	float getContrast();
+	void setPreSaturation(float value);
+	float getPreSaturation();
 	
-	void setHueShift(float value);
-	float getHueShift();
+	void setPreContrast(float value);
+	float getPreContrast();
+	
+	void setPreHueShift(float value);
+	float getPreHueShift();
+	
+	void setPostGamma(float value);
+	float getPostGamma();
+	
+	
+	void setPostBrightness(float value);
+	float getPostBrightness();
+	
+	void setPostSaturation(float value);
+	float getPostSaturation();
+	
+	void setPostContrast(float value);
+	float getPostContrast();
+	
+	void setPostHueShift(float value);
+	float getPostHueShift();
+	
+	
 	
 private:
 	bool isSetup;
@@ -172,12 +206,20 @@ private:
 	float rPosition;
 	float gPosition;
 	float bPosition;
-	float gamma;
-	float brightness;
-	float saturation;
-	float contrast;
-	float hueShift;
-	float* tone;
+	
+	float pre_gamma;
+	float pre_brightness;
+	float pre_saturation;
+	float pre_contrast;
+	float pre_hueShift;
+	float* pre_tone;
+	
+	float post_gamma;
+	float post_brightness;
+	float post_saturation;
+	float post_contrast;
+	float post_hueShift;
+	float* post_tone;
 	
 	int index;	
 	int internalRIndex;

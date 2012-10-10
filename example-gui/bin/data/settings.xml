@@ -6,3 +6,13 @@
 <Brightness>1</Brightness>
 <Saturation>1</Saturation>
 <Contrast>1</Contrast>
+<Pre_Gamma>1</Pre_Gamma>
+<Pre_Brightness>1</Pre_Brightness>
+<Pre_Saturation>1</Pre_Saturation>
+<Pre_Contrast>1</Pre_Contrast>
+<Pre_Hue_Shift>0</Pre_Hue_Shift>
+<Post_Gamma>1</Post_Gamma>
+<Post_Brightness>1</Post_Brightness>
+<Post_Saturation>1</Post_Saturation>
+<Post_Contrast>1</Post_Contrast>
+<Post_Hue_Shift>0</Post_Hue_Shift>

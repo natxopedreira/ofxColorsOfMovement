@@ -5,11 +5,16 @@ index(-1),
 rPosition(0),
 gPosition(0),
 bPosition(0),
-gamma(1.0),
-brightness(1.0),
-saturation(1.0),
-contrast(1.0),
-tone(new float[9]),
+pre_gamma(1.0),
+pre_brightness(1.0),
+pre_saturation(1.0),
+pre_contrast(1.0),
+pre_tone(new float[9]),
+post_gamma(1.0),
+post_brightness(1.0),
+post_saturation(1.0),
+post_contrast(1.0),
+post_tone(new float[9]),
 isSetup(false)
 {
 	vbo.setMode(OF_PRIMITIVE_TRIANGLES);
@@ -18,17 +23,29 @@ isSetup(false)
 	shader.setupShaderFromSource(GL_FRAGMENT_SHADER, OFXCM_FRAGMENT_SHADER);
 	shader.linkProgram();
 	
-	tone[0] = 1.0;
-	tone[1] = 0.0;
-	tone[2] = 0.0;
+	pre_tone[0] = 1.0;
+	pre_tone[1] = 0.0;
+	pre_tone[2] = 0.0;
 	
-	tone[3] = 0.0;
-	tone[4] = 1.0;
-	tone[5] = 0.0;
+	pre_tone[3] = 0.0;
+	pre_tone[4] = 1.0;
+	pre_tone[5] = 0.0;
 
-	tone[6] = 0.0;
-	tone[7] = 0.0;
-	tone[8] = 1.0;
+	pre_tone[6] = 0.0;
+	pre_tone[7] = 0.0;
+	pre_tone[8] = 1.0;
+	
+	post_tone[0] = 1.0;
+	post_tone[1] = 0.0;
+	post_tone[2] = 0.0;
+	
+	post_tone[3] = 0.0;
+	post_tone[4] = 1.0;
+	post_tone[5] = 0.0;
+	
+	post_tone[6] = 0.0;
+	post_tone[7] = 0.0;
+	post_tone[8] = 1.0;
 }
 
 void ofxColorsOfMovement::setup(ofVec2f texureSize, unsigned int bufferSize){
@@ -62,13 +79,18 @@ void ofxColorsOfMovement::addFrame(ofBaseDraws * frame){
 	shader.setUniformTexture("texR", buffer[internalRIndex]->getTextureReference(), 0 );
 	shader.setUniformTexture("texG", buffer[internalGIndex]->getTextureReference(), 1 );
 	shader.setUniformTexture("texB", buffer[internalBIndex]->getTextureReference(), 2 );
-	shader.setUniform1f("gamma", gamma );
-	shader.setUniform1f("brightness", brightness );
-	shader.setUniform1f("saturation", saturation );
-	shader.setUniform1f("contrast", contrast );
-	shader.setUniform1f("hueShift", hueShift );
-	// there is no built in "setUniform" for mat3x3 in ofShader
-	glUniformMatrix3fv(glGetUniformLocation(shader.getProgram(), "tone"), 1, GL_FALSE, tone);
+	shader.setUniform1f("pre_gamma", pre_gamma );
+	shader.setUniform1f("pre_brightness", pre_brightness );
+	shader.setUniform1f("pre_saturation", pre_saturation );
+	shader.setUniform1f("pre_contrast", pre_contrast );
+	shader.setUniform1f("pre_hueShift", pre_hueShift );
+	glUniformMatrix3fv(glGetUniformLocation(shader.getProgram(), "pre_tone"), 1, GL_FALSE, pre_tone);
+	shader.setUniform1f("post_gamma", post_gamma );
+	shader.setUniform1f("post_brightness", post_brightness );
+	shader.setUniform1f("post_saturation", post_saturation );
+	shader.setUniform1f("post_contrast", post_contrast );
+	shader.setUniform1f("post_hueShift", post_hueShift );
+	glUniformMatrix3fv(glGetUniformLocation(shader.getProgram(), "post_tone"), 1, GL_FALSE, post_tone);
 	vbo.draw();
 	shader.end();
 	endNormalized();
@@ -150,39 +172,74 @@ float	ofxColorsOfMovement::getBPosition(){
 	return bPosition;
 }
 
-void ofxColorsOfMovement::setGamma(float value){
-	gamma = value;
+void ofxColorsOfMovement::setPreGamma(float value){
+	pre_gamma = value;
 }
-float ofxColorsOfMovement::getGamma(){
-	return gamma;
-}
-
-void ofxColorsOfMovement::setBrightness(float value){
-	brightness = value;
-}
-float ofxColorsOfMovement::getBrightness(){
-	return brightness;
+float ofxColorsOfMovement::getPreGamma(){
+	return pre_gamma;
 }
 
-void ofxColorsOfMovement::setSaturation(float value){
-	saturation = value;
+void ofxColorsOfMovement::setPreBrightness(float value){
+	pre_brightness = value;
 }
-float ofxColorsOfMovement::getSaturation(){
-	return saturation;
-}
-
-void ofxColorsOfMovement::setContrast(float value){
-	contrast = value;
-}
-float ofxColorsOfMovement::getContrast(){
-	return contrast;
+float ofxColorsOfMovement::getPreBrightness(){
+	return pre_brightness;
 }
 
-void ofxColorsOfMovement::setHueShift(float value){
-	hueShift = value;
+void ofxColorsOfMovement::setPreSaturation(float value){
+	pre_saturation = value;
 }
-float ofxColorsOfMovement::getHueShift(){
-	return hueShift;
+float ofxColorsOfMovement::getPreSaturation(){
+	return pre_saturation;
+}
+
+void ofxColorsOfMovement::setPreContrast(float value){
+	pre_contrast = value;
+}
+float ofxColorsOfMovement::getPreContrast(){
+	return pre_contrast;
+}
+
+void ofxColorsOfMovement::setPreHueShift(float value){
+	pre_hueShift = value;
+}
+float ofxColorsOfMovement::getPreHueShift(){
+	return pre_hueShift;
+}
+
+void ofxColorsOfMovement::setPostGamma(float value){
+	post_gamma = value;
+}
+float ofxColorsOfMovement::getPostGamma(){
+	return post_gamma;
+}
+
+void ofxColorsOfMovement::setPostBrightness(float value){
+	post_brightness = value;
+}
+float ofxColorsOfMovement::getPostBrightness(){
+	return post_brightness;
+}
+
+void ofxColorsOfMovement::setPostSaturation(float value){
+	post_saturation = value;
+}
+float ofxColorsOfMovement::getPostSaturation(){
+	return post_saturation;
+}
+
+void ofxColorsOfMovement::setPostContrast(float value){
+	post_contrast = value;
+}
+float ofxColorsOfMovement::getPostContrast(){
+	return post_contrast;
+}
+
+void ofxColorsOfMovement::setPostHueShift(float value){
+	post_hueShift = value;
+}
+float ofxColorsOfMovement::getPostHueShift(){
+	return post_hueShift;
 }
 
 void ofxColorsOfMovement::allocate(){
