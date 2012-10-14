@@ -1,0 +1,10 @@
+ofxColorsOfMovement
+ofxGLWarper
+ofxGui
+ofxModifierKeys
+ofxOpenCv
+ofxQTKitVideoGrabber
+ofxUVC
+ofxUVCQTKitVideoGrabber
+ofxWarpBlendTool
+ofxXmlSettings
