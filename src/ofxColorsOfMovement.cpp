@@ -338,12 +338,14 @@ void ofxColorsOfMovement::allocate(){
 }
 
 void ofxColorsOfMovement::beginGLSettings(){
-	if(ofGetUsingArbTex()) ofEnableArbTex();
-	if(!ofGetUsingNormalizedTexCoords()) ofDisableNormalizedTexCoords();
+	wasUsingARB = ofGetUsingArbTex();
+	wasUsingNormalizedCoords = ofGetUsingNormalizedTexCoords();
+	if(!wasUsingARB) ofEnableArbTex();
+	if(wasUsingNormalizedCoords) ofDisableNormalizedTexCoords();
 }
 void ofxColorsOfMovement::endGLSettings(){
-	if(ofGetUsingArbTex()) ofDisableArbTex();
-	if(!ofGetUsingNormalizedTexCoords()) ofEnableNormalizedTexCoords();
+	if(!wasUsingARB) ofEnableArbTex();
+	if(wasUsingNormalizedCoords) ofEnableNormalizedTexCoords();
 }
 
 #ifndef OFXCM_DISABLE_DEFAULT_GUI

@@ -236,6 +236,8 @@ private:
 	
 	void beginGLSettings();
 	void endGLSettings();
+	bool wasUsingARB;
+	bool wasUsingNormalizedCoords;
 	
 #ifndef OFXCM_DISABLE_DEFAULT_GUI
 	void onGuiIntChange(int & v);
