@@ -2,15 +2,10 @@
 
 #include "ofMain.h"
 #include "ofxColorsOfMovement.h"
-#include "ofxWarpBlendTool.h"
+#include "ofxGlWarper.h"
 #include "ofxUVCQTKitVideoGrabber.h"
 #include "ofxGui.h"
 #include "ofxXmlSettings.h"
-
-#define OUTPUT_WIDTH 1920
-#define OUTPUT_HEIGHT 1080
-#define CAMERA_WIDTH 1280
-#define CAMERA_HEIGHT 720
 
 class testApp : public ofBaseApp{
 	
@@ -23,7 +18,7 @@ public:
 	void onGuiChange(float & value);
 	
 	ofxColorsOfMovement colorsOfMovement;
-	ofxWarpBlendTool::Controller controller;
+	ofxGLWarper warper;
 	ofxUVCQTKitVideoGrabber cam;
 	
 	ofxPanel gui;
@@ -40,5 +35,6 @@ public:
 	bool enableAppGui;
 	bool enableColorsOfMovementGui;
 	bool enableCameraGui;
-	bool enableWarpBlendGui;
+	bool enableWarpGui;
+	bool showMouse;
 };
