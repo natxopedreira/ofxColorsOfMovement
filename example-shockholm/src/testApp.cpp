@@ -4,7 +4,7 @@
 void testApp::setup(){
 	ofBackground(0, 0, 0);
 	ofSetVerticalSync(true);
-	ofSetFullscreen(true);
+	//ofSetFullscreen(true);
 	ofEnableNormalizedTexCoords();
 	ofDisableArbTex();
 	
@@ -17,13 +17,15 @@ void testApp::setup(){
 	outputPosition.set(settings.getValue("output:x", 2000),
 				   settings.getValue("output:y", 0));
 	
+	ofSetWindowPosition(outputPosition.x, outputPosition.y);
+	
 	
 	cam.setDeviceID(camId);
 	cam.initGrabber(captureSize.x, captureSize.y);
 	cam.setupControls(ofxUVCQTKitVideoGrabber::LOGITECH_C910);
 	cam.setupGui("Camera", "camera.xml");
 	
-	colorsOfMovement.setup(captureSize, 60);
+	colorsOfMovement.setup(captureSize/2, 30);
 	
 	ofRectangle subsection(ofPoint(0.0,0.0), ofPoint(1.0,1.0));
     ofPoint corners[4];
@@ -38,7 +40,7 @@ void testApp::setup(){
     string name = "Warp/Blend";
     float guiWidth = 250;
     float guiHeight = 15;
-    controller.setup(&(colorsOfMovement.getTextureReference()), captureSize, subsection, corners, name, guiWidth, guiHeight);
+    controller.setup(&(colorsOfMovement.getTextureReference()), captureSize/2, subsection, corners, name, guiWidth, guiHeight);
 	
 	enableAppGui = false;
 	enableColorsOfMovementGui = false;
@@ -76,7 +78,7 @@ void testApp::update(){
 	// quit if screen size don't match
 	if (ofGetFrameNum() % 300 == 299) {
 		if(ofGetWidth() != outputSize.x || ofGetHeight() != outputSize.y){
-			ofExit();
+			//ofExit();
 		}
 	}
 }
@@ -85,6 +87,7 @@ void testApp::update(){
 void testApp::draw(){
 	ofSetColor(255);
 	controller.draw();
+	colorsOfMovement.getTextureReference().draw(0,0);
 	
 	ofSetColor(0);
 	ofCircle(maskPosition, maskSize);
