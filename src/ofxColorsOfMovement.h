@@ -23,9 +23,9 @@ static string OFXCM_VERTEX_SHADER = STRINGIFY(
 											  );
 
 static string OFXCM_FRAGMENT_SHADER = STRINGIFY(
-												uniform sampler2D texR;
-												uniform sampler2D texG;
-												uniform sampler2D texB;
+												uniform sampler2DRect texR;
+												uniform sampler2DRect texG;
+												uniform sampler2DRect texB;
 												
 												uniform float pre_gamma;												
 												uniform float pre_brightness;
@@ -105,9 +105,9 @@ static string OFXCM_FRAGMENT_SHADER = STRINGIFY(
 												}
 												
 												void main(void){
-													vec3 r = texture2D(texR, gl_TexCoord[0].st).rgb;
-													vec3 g = texture2D(texG, gl_TexCoord[0].st).rgb;
-													vec3 b = texture2D(texB, gl_TexCoord[0].st).rgb;
+													vec3 r = texture2DRect(texR, gl_TexCoord[0].st).rgb;
+													vec3 g = texture2DRect(texG, gl_TexCoord[0].st).rgb;
+													vec3 b = texture2DRect(texB, gl_TexCoord[0].st).rgb;
 													
 													r = setGamma(r, pre_gamma);
 													r = setBrightnessSaturationContrast(r, pre_brightness, pre_saturation, pre_contrast);

@@ -153,7 +153,7 @@ void ofxColorsOfMovement::addFrame(ofBaseDraws * frame){
 	if(internalBIndex < 0) internalBIndex += buffer.size();
 	
 	fbo.begin();
-	beginNormalized();
+	beginGLSettings();
 	shader.begin();	
 	shader.setUniformTexture("texR", buffer[internalRIndex]->getTextureReference(), 0 );
 	shader.setUniformTexture("texG", buffer[internalGIndex]->getTextureReference(), 1 );
@@ -172,7 +172,7 @@ void ofxColorsOfMovement::addFrame(ofBaseDraws * frame){
 	glUniformMatrix3fv(glGetUniformLocation(shader.getProgram(), "post_tone"), 1, GL_FALSE, post_tone);
 	vbo.draw();
 	shader.end();
-	endNormalized();
+	endGLSettings();
 	fbo.end();
 	
 	ofPopStyle();
@@ -186,8 +186,8 @@ void ofxColorsOfMovement::setTextureSize(ofVec2f texureSize, bool reallocate){
 	if(this->texureSize == texureSize) return;
 	this->texureSize = texureSize;
 	
-	float coordWidth = (float)texureSize.x / ofNextPow2(texureSize.x);
-	float coordHeight = (float)texureSize.y / ofNextPow2(texureSize.y);
+	float coordWidth = texureSize.x;//(float)texureSize.x / ofNextPow2(texureSize.x);
+	float coordHeight = texureSize.y;//(float)texureSize.y / ofNextPow2(texureSize.y);
 	
 	vbo.clearTexCoords();
 	vbo.addTexCoord(ofVec2f(0,0));
@@ -324,7 +324,7 @@ float ofxColorsOfMovement::getPostHueShift(){
 }
 
 void ofxColorsOfMovement::allocate(){
-	beginNormalized();
+	beginGLSettings();
 	
 	fbo.allocate(texureSize.x, texureSize.y);
 	
@@ -334,16 +334,16 @@ void ofxColorsOfMovement::allocate(){
 		buffer.push_back(frame);
 	}
 	
-	endNormalized();
+	endGLSettings();
 }
 
-void ofxColorsOfMovement::beginNormalized(){
-	if(ofGetUsingArbTex()) ofDisableArbTex();
-	if(!ofGetUsingNormalizedTexCoords()) ofEnableNormalizedTexCoords();
-}
-void ofxColorsOfMovement::endNormalized(){
+void ofxColorsOfMovement::beginGLSettings(){
 	if(ofGetUsingArbTex()) ofEnableArbTex();
 	if(!ofGetUsingNormalizedTexCoords()) ofDisableNormalizedTexCoords();
+}
+void ofxColorsOfMovement::endGLSettings(){
+	if(ofGetUsingArbTex()) ofDisableArbTex();
+	if(!ofGetUsingNormalizedTexCoords()) ofEnableNormalizedTexCoords();
 }
 
 #ifndef OFXCM_DISABLE_DEFAULT_GUI
