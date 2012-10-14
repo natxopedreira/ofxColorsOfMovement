@@ -5,6 +5,7 @@
 #include "ofxWarpBlendTool.h"
 #include "ofxUVCQTKitVideoGrabber.h"
 #include "ofxGui.h"
+#include "ofxXmlSettings.h"
 
 #define OUTPUT_WIDTH 1920
 #define OUTPUT_HEIGHT 1080
@@ -27,7 +28,14 @@ public:
 	
 	ofxPanel gui;
 	
-	float maskSize, maskY, maskX;
+	ofxXmlSettings settings;
+	int camId;
+	ofVec2f captureSize;
+	ofVec2f outputSize;
+	ofVec2f outputPosition;
+	
+	float maskSize;
+	ofVec2f maskPosition;
 	
 	bool enableAppGui;
 	bool enableColorsOfMovementGui;
