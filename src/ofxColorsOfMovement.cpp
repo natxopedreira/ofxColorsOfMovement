@@ -133,6 +133,9 @@ void ofxColorsOfMovement::setup(ofVec2f texureSize, unsigned int bufferSize){
 void ofxColorsOfMovement::addFrame(ofBaseDraws * frame){
 	if(!isSetup || !buffer.size()) return;
 	
+	ofPushStyle();
+	ofSetColor(255);
+	
 	index ++;
 	index = index % buffer.size();
 	
@@ -171,6 +174,8 @@ void ofxColorsOfMovement::addFrame(ofBaseDraws * frame){
 	shader.end();
 	endNormalized();
 	fbo.end();
+	
+	ofPopStyle();
 }
 
 ofTexture & ofxColorsOfMovement::getTextureReference(){
