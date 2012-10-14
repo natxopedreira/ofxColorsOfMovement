@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxColorsOfMovement.h"
-#include "ofxWarpBlendTool.h"
+#include "ofxGlWarper.h"
 #include "ofxUVCQTKitVideoGrabber.h"
 #include "ofxGui.h"
 #include "ofxXmlSettings.h"
@@ -23,7 +23,7 @@ public:
 	void onGuiChange(float & value);
 	
 	ofxColorsOfMovement colorsOfMovement;
-	ofxWarpBlendTool::Controller controller;
+	ofxGLWarper warper;
 	ofxUVCQTKitVideoGrabber cam;
 	
 	ofxPanel gui;
@@ -40,5 +40,6 @@ public:
 	bool enableAppGui;
 	bool enableColorsOfMovementGui;
 	bool enableCameraGui;
-	bool enableWarpBlendGui;
+	bool enableWarpGui;
+	bool showMouse;
 };

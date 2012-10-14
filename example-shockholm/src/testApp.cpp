@@ -25,26 +25,15 @@ void testApp::setup(){
 	
 	colorsOfMovement.setup(captureSize, 60);
 	
-	ofRectangle subsection(ofPoint(0.0,0.0), ofPoint(1.0,1.0));
-    ofPoint corners[4];
-    corners[0].x = outputSize.x;
-    corners[0].y = 0;
-    corners[1].x = outputSize.x;
-    corners[1].y = outputSize.y;
-    corners[2].x = 0;
-    corners[2].y = outputSize.y;
-	corners[3].x = 0;
-    corners[3].y = 0;
-    string name = "Warp/Blend";
-    float guiWidth = 250;
-    float guiHeight = 15;
-    controller.setup(&(colorsOfMovement.getTextureReference()), captureSize, subsection, corners, name, guiWidth, guiHeight);
+	warper.setup(0, 0, captureSize.x, captureSize.y);
+	warper.load();
+	
 	
 	enableAppGui = false;
 	enableColorsOfMovementGui = false;
 	enableCameraGui = false;
-	enableWarpBlendGui = false;
-	
+	enableWarpGui = false;
+	showMouse = false;
 
 	gui.setup("App", "app.xml");
 	
@@ -84,18 +73,33 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 	ofSetColor(255);
-	controller.draw();
+	warper.begin();
+	colorsOfMovement.getTextureReference().draw(0,0,captureSize.x, captureSize.y);
+	warper.end();
 	
 	ofSetColor(0);
 	ofCircle(maskPosition, maskSize);
 	
 	if(enableColorsOfMovementGui) colorsOfMovement.drawGui();
 	if(enableCameraGui) cam.drawGui();
-	if(enableWarpBlendGui) controller.drawGui();
 	if(enableAppGui) {
 		ofSetColor(255);
 		ofDrawBitmapString(ofToString(ofGetFrameRate()), 20,20);
 		gui.draw();
+	}
+	if (enableWarpGui) {
+		warper.begin();
+		ofPushStyle();
+		ofSetColor(255);
+		ofNoFill();
+		ofRect(0, 0, captureSize.x, captureSize.y);
+		ofPopStyle();
+		warper.end();
+	}
+	if(showMouse){
+		ofSetColor(255);
+		ofLine(mouseX, 0, mouseX, ofGetHeight());
+		ofLine(0, mouseY, ofGetWidth(), mouseY);
 	}
 }
 
@@ -104,8 +108,21 @@ void testApp::keyPressed(int key){
 	if(key == ' ') ofToggleFullscreen();
 	else if(key == '1') enableColorsOfMovementGui = !enableColorsOfMovementGui;
 	else if(key == '2') enableCameraGui = !enableCameraGui;
-	else if(key == '3') enableWarpBlendGui = !enableWarpBlendGui;
-	else if(key == '4') enableAppGui = !enableAppGui;
+	else if(key == '3') enableAppGui = !enableAppGui;
+	else if(key == '4') {
+		enableWarpGui = !enableWarpGui;
+		if(enableWarpGui) warper.activate();
+		else warper.deactivate();
+	}
+	else if(key == 'm'){
+		showMouse = !showMouse;
+		if(showMouse){
+			ofShowCursor();
+		}
+		else{
+			ofHideCursor();
+		}
+	}
 }
 
 void testApp::onGuiChange(float & value){
