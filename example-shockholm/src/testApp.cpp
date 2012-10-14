@@ -8,28 +8,37 @@ void testApp::setup(){
 	ofEnableNormalizedTexCoords();
 	ofDisableArbTex();
 	
-	cam.setDeviceID(0);
-	cam.initGrabber(CAMERA_WIDTH, CAMERA_HEIGHT);
+	settings.loadFile("settings.xml");
+	camId = settings.getValue("camera", 0);
+	captureSize.set(settings.getValue("capture:width", 1280),
+					settings.getValue("capture:height", 720));
+	outputSize.set(settings.getValue("output:width", 1080),
+					settings.getValue("output:height", 1920));
+	outputPosition.set(settings.getValue("output:x", 2000),
+				   settings.getValue("output:y", 0));
+	
+	
+	cam.setDeviceID(camId);
+	cam.initGrabber(captureSize.x, captureSize.y);
 	cam.setupControls(ofxUVCQTKitVideoGrabber::LOGITECH_C910);
 	cam.setupGui("Camera", "camera.xml");
 	
-	colorsOfMovement.setup(ofVec2f(CAMERA_WIDTH, CAMERA_HEIGHT), 60);
+	colorsOfMovement.setup(captureSize, 60);
 	
-	ofVec2f size(CAMERA_WIDTH, CAMERA_HEIGHT);
 	ofRectangle subsection(ofPoint(0.0,0.0), ofPoint(1.0,1.0));
     ofPoint corners[4];
-    corners[0].x = 0;
+    corners[0].x = outputSize.x;
     corners[0].y = 0;
-    corners[1].x = OUTPUT_WIDTH;
-    corners[1].y = 0;
-    corners[2].x = OUTPUT_WIDTH;
-    corners[2].y = OUTPUT_HEIGHT;
-    corners[3].x = 0;
-    corners[3].y = OUTPUT_HEIGHT;
+    corners[1].x = outputSize.x;
+    corners[1].y = outputSize.y;
+    corners[2].x = 0;
+    corners[2].y = outputSize.y;
+	corners[3].x = 0;
+    corners[3].y = 0;
     string name = "Warp/Blend";
     float guiWidth = 250;
     float guiHeight = 15;
-    controller.setup(&(colorsOfMovement.getTextureReference()), size, subsection, corners, name, guiWidth, guiHeight);
+    controller.setup(&(colorsOfMovement.getTextureReference()), captureSize, subsection, corners, name, guiWidth, guiHeight);
 	
 	enableAppGui = false;
 	enableColorsOfMovementGui = false;
@@ -45,12 +54,12 @@ void testApp::setup(){
 	gui.add(maskSizeSlider);
 	
 	ofxFloatSlider * maskXSlider = new ofxFloatSlider();
-	maskXSlider->setup("x", 0.0, 0.0, OUTPUT_WIDTH);
+	maskXSlider->setup("x", 0.0, 0.0, outputSize.x);
 	maskXSlider->addListener(this, &testApp::onGuiChange);
 	gui.add(maskXSlider);
 	
 	ofxFloatSlider * maskYSlider = new ofxFloatSlider();
-	maskYSlider->setup("y", 0.0, 0.0, OUTPUT_HEIGHT);
+	maskYSlider->setup("y", 0.0, 0.0, outputSize.y);
 	maskYSlider->addListener(this, &testApp::onGuiChange);
 	gui.add(maskYSlider);
 	
@@ -63,6 +72,13 @@ void testApp::update(){
 	if(cam.isFrameNew()){
 		colorsOfMovement.addFrame(&(cam.getTextureReference()));
 	}
+	
+	// quit if screen size don't match
+	if (ofGetFrameNum() % 300 == 299) {
+		if(ofGetWidth() != outputSize.x || ofGetHeight() != outputSize.y){
+			ofExit();
+		}
+	}
 }
 
 //--------------------------------------------------------------
@@ -71,7 +87,7 @@ void testApp::draw(){
 	controller.draw();
 	
 	ofSetColor(0);
-	ofCircle(maskX, maskY, maskSize);
+	ofCircle(maskPosition, maskSize);
 	
 	if(enableColorsOfMovementGui) colorsOfMovement.drawGui();
 	if(enableCameraGui) cam.drawGui();
@@ -94,6 +110,6 @@ void testApp::keyPressed(int key){
 
 void testApp::onGuiChange(float & value){
 	maskSize = gui.getFloatSlider("Size");
-	maskX = gui.getFloatSlider("x");
-	maskY = gui.getFloatSlider("x");
+	maskPosition.set(gui.getFloatSlider("x"),
+					 gui.getFloatSlider("y"));
 }
