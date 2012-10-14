@@ -26,7 +26,7 @@ void testApp::setup(){
 	cam.setupControls(ofxUVCQTKitVideoGrabber::LOGITECH_C910);
 	cam.setupGui("Camera", "camera.xml");
 	
-	colorsOfMovement.setup(captureSize/2, 5120);
+	colorsOfMovement.setup(captureSize/2, 30);
 
 	warper.setup(0, 0, captureSize.x, captureSize.y);
 	warper.load();
