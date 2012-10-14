@@ -1,0 +1,11 @@
+<camera>1</camera>
+<capture>
+	<width>1280</width>
+	<height>720</height>
+</capture>
+<output>
+	<x>2000</x>
+	<y>0</y>
+	<width>1080</width>
+	<height>1920</height>
+</output>

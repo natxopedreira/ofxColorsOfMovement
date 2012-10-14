@@ -4,7 +4,7 @@
 void testApp::setup(){
 	ofBackground(0, 0, 0);
 	ofSetVerticalSync(true);
-	ofSetFullscreen(true);
+	//ofSetFullscreen(true);
 	ofEnableNormalizedTexCoords();
 	ofDisableArbTex();
 	
@@ -17,18 +17,19 @@ void testApp::setup(){
 	outputPosition.set(settings.getValue("output:x", 2000),
 				   settings.getValue("output:y", 0));
 	
+	ofSetWindowPosition(outputPosition.x, outputPosition.y);
+	
 	
 	cam.setDeviceID(camId);
 	cam.initGrabber(captureSize.x, captureSize.y);
 	cam.setupControls(ofxUVCQTKitVideoGrabber::LOGITECH_C910);
 	cam.setupGui("Camera", "camera.xml");
 	
-	colorsOfMovement.setup(captureSize, 60);
-	
+	colorsOfMovement.setup(captureSize/2, 30);
+
 	warper.setup(0, 0, captureSize.x, captureSize.y);
 	warper.load();
-	
-	
+
 	enableAppGui = false;
 	enableColorsOfMovementGui = false;
 	enableCameraGui = false;
@@ -65,7 +66,7 @@ void testApp::update(){
 	// quit if screen size don't match
 	if (ofGetFrameNum() % 300 == 299) {
 		if(ofGetWidth() != outputSize.x || ofGetHeight() != outputSize.y){
-			ofExit();
+			//ofExit();
 		}
 	}
 }
