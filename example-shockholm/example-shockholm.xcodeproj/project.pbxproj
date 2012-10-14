@@ -15,9 +15,6 @@
 		10C7553F162B186500D7F67C /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C75491162B186500D7F67C /* ofxPanel.cpp */; };
 		10C75540162B186500D7F67C /* ofxSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C75493162B186500D7F67C /* ofxSlider.cpp */; };
 		10C75541162B186500D7F67C /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C75495162B186500D7F67C /* ofxToggle.cpp */; };
-		10C75542162B186500D7F67C /* ofxModifierKeys_impl_linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C7549A162B186500D7F67C /* ofxModifierKeys_impl_linux.cpp */; };
-		10C75543162B186500D7F67C /* ofxModifierKeys_impl_mac.mm in Sources */ = {isa = PBXBuildFile; fileRef = 10C7549B162B186500D7F67C /* ofxModifierKeys_impl_mac.mm */; };
-		10C75544162B186500D7F67C /* ofxModifierKeys_impl_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C7549C162B186500D7F67C /* ofxModifierKeys_impl_win.cpp */; };
 		10C75545162B186500D7F67C /* ofxCvColorImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C754A0162B186500D7F67C /* ofxCvColorImage.cpp */; };
 		10C75546162B186500D7F67C /* ofxCvContourFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C754A3162B186500D7F67C /* ofxCvContourFinder.cpp */; };
 		10C75547162B186500D7F67C /* ofxCvFloatImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C754A5162B186500D7F67C /* ofxCvFloatImage.cpp */; };
@@ -29,7 +26,6 @@
 		10C7554D162B186500D7F67C /* ofxUVC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 10C7551C162B186500D7F67C /* ofxUVC.mm */; };
 		10C7554E162B186500D7F67C /* UVCCameraControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 10C7551E162B186500D7F67C /* UVCCameraControl.m */; };
 		10C7554F162B186500D7F67C /* ofxUVCQTKitVideoGrabber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C75521162B186500D7F67C /* ofxUVCQTKitVideoGrabber.cpp */; };
-		10C75550162B186500D7F67C /* ofxWarpBlendTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C75525162B186500D7F67C /* ofxWarpBlendTool.cpp */; };
 		10C75551162B186500D7F67C /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C7552A162B186500D7F67C /* ofxXmlSettings.cpp */; };
 		10C75552162B186500D7F67C /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C7552D162B186500D7F67C /* tinyxml.cpp */; };
 		10C75553162B186500D7F67C /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C7552F162B186500D7F67C /* tinyxmlerror.cpp */; };
@@ -105,10 +101,6 @@
 		10C75494162B186500D7F67C /* ofxSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSlider.h; path = ../../../addons/ofxGui/src/ofxSlider.h; sourceTree = SOURCE_ROOT; };
 		10C75495162B186500D7F67C /* ofxToggle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxToggle.cpp; path = ../../../addons/ofxGui/src/ofxToggle.cpp; sourceTree = SOURCE_ROOT; };
 		10C75496162B186500D7F67C /* ofxToggle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxToggle.h; path = ../../../addons/ofxGui/src/ofxToggle.h; sourceTree = SOURCE_ROOT; };
-		10C75499162B186500D7F67C /* ofxModifierKeys.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxModifierKeys.h; path = ../../../addons/ofxModifierKeys/src/ofxModifierKeys.h; sourceTree = SOURCE_ROOT; };
-		10C7549A162B186500D7F67C /* ofxModifierKeys_impl_linux.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxModifierKeys_impl_linux.cpp; path = ../../../addons/ofxModifierKeys/src/ofxModifierKeys_impl_linux.cpp; sourceTree = SOURCE_ROOT; };
-		10C7549B162B186500D7F67C /* ofxModifierKeys_impl_mac.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = ofxModifierKeys_impl_mac.mm; path = ../../../addons/ofxModifierKeys/src/ofxModifierKeys_impl_mac.mm; sourceTree = SOURCE_ROOT; };
-		10C7549C162B186500D7F67C /* ofxModifierKeys_impl_win.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxModifierKeys_impl_win.cpp; path = ../../../addons/ofxModifierKeys/src/ofxModifierKeys_impl_win.cpp; sourceTree = SOURCE_ROOT; };
 		10C7549F162B186500D7F67C /* ofxCvBlob.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCvBlob.h; path = ../../../addons/ofxOpenCv/src/ofxCvBlob.h; sourceTree = SOURCE_ROOT; };
 		10C754A0162B186500D7F67C /* ofxCvColorImage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxCvColorImage.cpp; path = ../../../addons/ofxOpenCv/src/ofxCvColorImage.cpp; sourceTree = SOURCE_ROOT; };
 		10C754A1162B186500D7F67C /* ofxCvColorImage.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCvColorImage.h; path = ../../../addons/ofxOpenCv/src/ofxCvColorImage.h; sourceTree = SOURCE_ROOT; };
@@ -217,9 +209,6 @@
 		10C7551E162B186500D7F67C /* UVCCameraControl.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = UVCCameraControl.m; path = ../../../addons/ofxUVC/src/UVCCameraControl.m; sourceTree = SOURCE_ROOT; };
 		10C75521162B186500D7F67C /* ofxUVCQTKitVideoGrabber.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxUVCQTKitVideoGrabber.cpp; path = ../../../addons/ofxUVCQTKitVideoGrabber/src/ofxUVCQTKitVideoGrabber.cpp; sourceTree = SOURCE_ROOT; };
 		10C75522162B186500D7F67C /* ofxUVCQTKitVideoGrabber.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUVCQTKitVideoGrabber.h; path = ../../../addons/ofxUVCQTKitVideoGrabber/src/ofxUVCQTKitVideoGrabber.h; sourceTree = SOURCE_ROOT; };
-		10C75525162B186500D7F67C /* ofxWarpBlendTool.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxWarpBlendTool.cpp; path = ../../../addons/ofxWarpBlendTool/src/ofxWarpBlendTool.cpp; sourceTree = SOURCE_ROOT; };
-		10C75526162B186500D7F67C /* ofxWarpBlendTool.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxWarpBlendTool.h; path = ../../../addons/ofxWarpBlendTool/src/ofxWarpBlendTool.h; sourceTree = SOURCE_ROOT; };
-		10C75527162B186500D7F67C /* ofxWarpBlendToolShaders.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxWarpBlendToolShaders.h; path = ../../../addons/ofxWarpBlendTool/src/ofxWarpBlendToolShaders.h; sourceTree = SOURCE_ROOT; };
 		10C7552A162B186500D7F67C /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
 		10C7552B162B186500D7F67C /* ofxXmlSettings.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxXmlSettings.h; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.h; sourceTree = SOURCE_ROOT; };
 		10C7552D162B186500D7F67C /* tinyxml.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxml.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxml.cpp; sourceTree = SOURCE_ROOT; };
@@ -340,25 +329,6 @@
 				10C75497162B186500D7F67C /* src */,
 			);
 			name = ofxGui;
-			sourceTree = "<group>";
-		};
-		10C7549D162B186500D7F67C /* src */ = {
-			isa = PBXGroup;
-			children = (
-				10C75499162B186500D7F67C /* ofxModifierKeys.h */,
-				10C7549A162B186500D7F67C /* ofxModifierKeys_impl_linux.cpp */,
-				10C7549B162B186500D7F67C /* ofxModifierKeys_impl_mac.mm */,
-				10C7549C162B186500D7F67C /* ofxModifierKeys_impl_win.cpp */,
-			);
-			name = src;
-			sourceTree = "<group>";
-		};
-		10C7549E162B186500D7F67C /* ofxModifierKeys */ = {
-			isa = PBXGroup;
-			children = (
-				10C7549D162B186500D7F67C /* src */,
-			);
-			name = ofxModifierKeys;
 			sourceTree = "<group>";
 		};
 		10C754B1162B186500D7F67C /* src */ = {
@@ -673,24 +643,6 @@
 			name = ofxUVCQTKitVideoGrabber;
 			sourceTree = "<group>";
 		};
-		10C75528162B186500D7F67C /* src */ = {
-			isa = PBXGroup;
-			children = (
-				10C75525162B186500D7F67C /* ofxWarpBlendTool.cpp */,
-				10C75526162B186500D7F67C /* ofxWarpBlendTool.h */,
-				10C75527162B186500D7F67C /* ofxWarpBlendToolShaders.h */,
-			);
-			name = src;
-			sourceTree = "<group>";
-		};
-		10C75529162B186500D7F67C /* ofxWarpBlendTool */ = {
-			isa = PBXGroup;
-			children = (
-				10C75528162B186500D7F67C /* src */,
-			);
-			name = ofxWarpBlendTool;
-			sourceTree = "<group>";
-		};
 		10C7552C162B186500D7F67C /* src */ = {
 			isa = PBXGroup;
 			children = (
@@ -726,12 +678,10 @@
 				10C75483162B186500D7F67C /* ofxColorsOfMovement */,
 				10C75487162B186500D7F67C /* ofxGLWarper */,
 				10C75498162B186500D7F67C /* ofxGui */,
-				10C7549E162B186500D7F67C /* ofxModifierKeys */,
 				10C75516162B186500D7F67C /* ofxOpenCv */,
 				10C7551A162B186500D7F67C /* ofxQTKitVideoGrabber */,
 				10C75520162B186500D7F67C /* ofxUVC */,
 				10C75524162B186500D7F67C /* ofxUVCQTKitVideoGrabber */,
-				10C75529162B186500D7F67C /* ofxWarpBlendTool */,
 				10C75532162B186500D7F67C /* ofxXmlSettings */,
 			);
 			name = addons;
@@ -909,9 +859,6 @@
 				10C7553F162B186500D7F67C /* ofxPanel.cpp in Sources */,
 				10C75540162B186500D7F67C /* ofxSlider.cpp in Sources */,
 				10C75541162B186500D7F67C /* ofxToggle.cpp in Sources */,
-				10C75542162B186500D7F67C /* ofxModifierKeys_impl_linux.cpp in Sources */,
-				10C75543162B186500D7F67C /* ofxModifierKeys_impl_mac.mm in Sources */,
-				10C75544162B186500D7F67C /* ofxModifierKeys_impl_win.cpp in Sources */,
 				10C75545162B186500D7F67C /* ofxCvColorImage.cpp in Sources */,
 				10C75546162B186500D7F67C /* ofxCvContourFinder.cpp in Sources */,
 				10C75547162B186500D7F67C /* ofxCvFloatImage.cpp in Sources */,
@@ -923,7 +870,6 @@
 				10C7554D162B186500D7F67C /* ofxUVC.mm in Sources */,
 				10C7554E162B186500D7F67C /* UVCCameraControl.m in Sources */,
 				10C7554F162B186500D7F67C /* ofxUVCQTKitVideoGrabber.cpp in Sources */,
-				10C75550162B186500D7F67C /* ofxWarpBlendTool.cpp in Sources */,
 				10C75551162B186500D7F67C /* ofxXmlSettings.cpp in Sources */,
 				10C75552162B186500D7F67C /* tinyxml.cpp in Sources */,
 				10C75553162B186500D7F67C /* tinyxmlerror.cpp in Sources */,

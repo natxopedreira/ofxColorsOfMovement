@@ -114,6 +114,7 @@ void testApp::keyPressed(int key){
 		enableWarpGui = !enableWarpGui;
 		if(enableWarpGui) warper.activate();
 		else warper.deactivate();
+		warper.save();
 	}
 	else if(key == 'm'){
 		showMouse = !showMouse;
