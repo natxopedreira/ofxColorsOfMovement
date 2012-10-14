@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxColorsOfMovement.h"
+#include "ofxWarpBlendTool.h"
 
 class testApp : public ofBaseApp{
 public:
@@ -10,5 +11,7 @@ public:
 	void draw();
 	
 	ofxColorsOfMovement colorsOfMovement;
+	ofxWarpBlendTool::Controller controller;
+	
 	ofVideoGrabber cam;
 };

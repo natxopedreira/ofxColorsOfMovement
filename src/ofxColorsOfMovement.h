@@ -8,6 +8,10 @@
 
 #include "ofMain.h"
 
+#ifndef OFXCM_DISABLE_DEFAULT_GUI
+#include "ofxGui.h"
+#endif
+
 #define STRINGIFY(A) #A
 
 static string OFXCM_VERTEX_SHADER = STRINGIFY(
@@ -191,7 +195,9 @@ public:
 	void setPostHueShift(float value);
 	float getPostHueShift();
 	
-	
+#ifndef OFXCM_DISABLE_DEFAULT_GUI
+	void drawGui();
+#endif
 	
 private:
 	bool isSetup;
@@ -230,4 +236,10 @@ private:
 	
 	void beginNormalized();
 	void endNormalized();
+	
+#ifndef OFXCM_DISABLE_DEFAULT_GUI
+	void onGuiIntChange(int & v);
+	void onGuiFloatChange(float & v);
+	ofxPanel gui;
+#endif
 };
