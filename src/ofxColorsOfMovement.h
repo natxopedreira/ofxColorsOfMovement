@@ -234,8 +234,8 @@ private:
 	
 	void allocate();
 	
-	void beginNormalized();
-	void endNormalized();
+	void beginGLSettings();
+	void endGLSettings();
 	
 #ifndef OFXCM_DISABLE_DEFAULT_GUI
 	void onGuiIntChange(int & v);
