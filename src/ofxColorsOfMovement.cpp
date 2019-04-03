@@ -60,20 +60,32 @@ void ofxColorsOfMovement::setup(ofVec2f texureSize, unsigned int bufferSize){
 	mixLabel->setup("Channel Mixer", "Channel Mixer", 200, 40);
 	gui.add(mixLabel);
 	
-	ofxIntSlider * buffer = new ofxIntSlider("Buffer Size", 30, 1, 300);
-	buffer->addListener(this, &ofxColorsOfMovement::onGuiIntChange);
+    
+    
+	//ofxIntSlider * buffer = new ofxIntSlider("Buffer Size", 30, 1, 300);
+	ofxIntSlider * buffer = new ofxIntSlider();
+    buffer->setup("Buffer Size", 30, 1, 300);
+    
+    buffer->addListener(this, &ofxColorsOfMovement::onGuiIntChange);
 	gui.add(buffer);
 	
-	ofxFloatSlider * red = new ofxFloatSlider("Red Position", 0, 0, 1);
-	red->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	//ofxFloatSlider * red = new ofxFloatSlider("Red Position", 0, 0, 1);
+	ofxFloatSlider * red = new ofxFloatSlider();
+    red->setup("Red Position", 0, 0, 1);
+    red->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
 	gui.add(red);
 	
-	ofxFloatSlider * green = new ofxFloatSlider("Green Position", 0, 0, 1);
-	green->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	//ofxFloatSlider * green = new ofxFloatSlider("Green Position", 0, 0, 1);
+	ofxFloatSlider * green = new ofxFloatSlider();
+    green->setup("Green Position", 0, 0, 1);
+    green->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
 	gui.add(green);
 	
-	ofxFloatSlider * blue = new ofxFloatSlider("Blue Position", 0, 0, 1);
-	blue->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
+	//ofxFloatSlider * blue = new ofxFloatSlider("Blue Position", 0, 0, 1);
+	ofxFloatSlider * blue = new ofxFloatSlider();
+    blue->setup("Blue Position", 0, 0, 1);
+    
+    blue->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
 	gui.add(blue);
 	
 	
@@ -81,23 +93,28 @@ void ofxColorsOfMovement::setup(ofVec2f texureSize, unsigned int bufferSize){
 	preLabel->setup("Pre Effects", "Pre Effects", 200, 40);
 	gui.add(preLabel);
 	
-	ofxFloatSlider * pre_gamma = new ofxFloatSlider("Pre Gamma", 1, 0, 5);
+	ofxFloatSlider * pre_gamma = new ofxFloatSlider();
+    pre_gamma->setup("Pre Gamma", 1, 0, 5);
 	pre_gamma->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
 	gui.add(pre_gamma);
 	
-	ofxFloatSlider * pre_brightness = new ofxFloatSlider("Pre Brightness", 1, 0, 5);
+	ofxFloatSlider * pre_brightness = new ofxFloatSlider();
+    pre_brightness->setup("Pre Brightness", 1, 0, 5);
 	pre_brightness->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
 	gui.add(pre_brightness);
 	
-	ofxFloatSlider * pre_saturation = new ofxFloatSlider("Pre Saturation", 1, 0, 5);
+	ofxFloatSlider * pre_saturation = new ofxFloatSlider();
+    pre_saturation->setup("Pre Saturation", 1, 0, 5);
 	pre_saturation->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
 	gui.add(pre_saturation);
 	
-	ofxFloatSlider * pre_contrast = new ofxFloatSlider("Pre Contrast", 1, 0, 5);
+	ofxFloatSlider * pre_contrast = new ofxFloatSlider();
+    pre_contrast->setup("Pre Contrast", 1, 0, 5);
 	pre_contrast->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
 	gui.add(pre_contrast);
 	
-	ofxFloatSlider * pre_hueShift = new ofxFloatSlider("Pre Hue Shift", 0, -1, 1);
+	ofxFloatSlider * pre_hueShift = new ofxFloatSlider();
+    pre_hueShift->setup("Pre Hue Shift", 0, -1, 1);
 	pre_hueShift->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
 	gui.add(pre_hueShift);
 	
@@ -107,23 +124,28 @@ void ofxColorsOfMovement::setup(ofVec2f texureSize, unsigned int bufferSize){
 	postLabel->setup("Post Effects", "Post Effects", 200, 40);
 	gui.add(postLabel);
 	
-	ofxFloatSlider * post_gamma = new ofxFloatSlider("Post Gamma", 1, 0, 5);
+	ofxFloatSlider * post_gamma = new ofxFloatSlider();
+    post_gamma->setup("Post Gamma", 1, 0, 5);
 	post_gamma->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
 	gui.add(post_gamma);
 	
-	ofxFloatSlider * post_brightness = new ofxFloatSlider("Post Brightness", 1, 0, 5);
+	ofxFloatSlider * post_brightness = new ofxFloatSlider();
+    post_brightness->setup("Post Brightness", 1, 0, 5);
 	post_brightness->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
 	gui.add(post_brightness);
 	
-	ofxFloatSlider * post_saturation = new ofxFloatSlider("Post Saturation", 1, 0, 5);
+	ofxFloatSlider * post_saturation = new ofxFloatSlider();
+    post_saturation->setup("Post Saturation", 1, 0, 5);
 	post_saturation->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
 	gui.add(post_saturation);
 	
-	ofxFloatSlider * post_contrast = new ofxFloatSlider("Post Contrast", 1, 0, 5);
+	ofxFloatSlider * post_contrast = new ofxFloatSlider();
+    post_contrast->setup("Post Contrast", 1, 0, 5);
 	post_contrast->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
 	gui.add(post_contrast);
 	
-	ofxFloatSlider * post_hueShift = new ofxFloatSlider("Post Hue Shift", 0, -1, 1);
+	ofxFloatSlider * post_hueShift = new ofxFloatSlider();
+    post_hueShift->setup("Post Hue Shift", 0, -1, 1);
 	post_hueShift->addListener(this, &ofxColorsOfMovement::onGuiFloatChange);
 	gui.add(post_hueShift);
 	
@@ -155,9 +177,9 @@ void ofxColorsOfMovement::addFrame(ofBaseDraws * frame){
 	fbo.begin();
 	beginGLSettings();
 	shader.begin();	
-	shader.setUniformTexture("texR", buffer[internalRIndex]->getTextureReference(), 0 );
-	shader.setUniformTexture("texG", buffer[internalGIndex]->getTextureReference(), 1 );
-	shader.setUniformTexture("texB", buffer[internalBIndex]->getTextureReference(), 2 );
+	shader.setUniformTexture("texR", buffer[internalRIndex]->getTexture(), 0 );
+	shader.setUniformTexture("texG", buffer[internalGIndex]->getTexture(), 1 );
+	shader.setUniformTexture("texB", buffer[internalBIndex]->getTexture(), 2 );
 	shader.setUniform1f("pre_gamma", pre_gamma );
 	shader.setUniform1f("pre_brightness", pre_brightness );
 	shader.setUniform1f("pre_saturation", pre_saturation );
@@ -179,7 +201,7 @@ void ofxColorsOfMovement::addFrame(ofBaseDraws * frame){
 }
 
 ofTexture & ofxColorsOfMovement::getTextureReference(){
-	return fbo.getTextureReference();
+	return fbo.getTexture();
 }
 
 void ofxColorsOfMovement::setTextureSize(ofVec2f texureSize, bool reallocate){

@@ -138,15 +138,51 @@ static string OFXCM_FRAGMENT_SHADER = STRINGIFY(
 												}
 												);
 
+
+/*
+ /// \brief An abstract class representing an object that can have an ofTexture.
+ 
+	/// \returns a const reference to the ofTexture.
+	virtual const ofTexture & getTexture() const=0;
+ 
+	/// \brief Enable or disable internal ofTexture use.
+	/// \param bUseTex true if an ofTexture should be used.
+	virtual void setUseTexture(bool bUseTex)=0;
+ 
+	/// \returns true if an internal ofTexture is being used.
+	virtual bool isUsingTexture() const=0;
+ };
+ */
+
+
 class ofxColorsOfMovement : public ofBaseHasTexture {
 public:
 	ofxColorsOfMovement();
 	
+    ~ofxColorsOfMovement(){}
+    
+    ///////////////////////////
+    /// \returns a reference to the ofTexture.
+    virtual ofTexture & getTexture(){};
+    
+    /// \returns a const reference to the ofTexture.
+    virtual const ofTexture & getTexture() const{};
+    
+    /// \brief Enable or disable internal ofTexture use.
+    /// \param bUseTex true if an ofTexture should be used.
+    virtual void setUseTexture(bool bUseTex){};
+    
+    /// \returns true if an internal ofTexture is being used.
+    virtual bool isUsingTexture() const{};
+    
+    //////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////
+    
+    
 	void setup(ofVec2f texSize, unsigned int bufferSize);
 	void addFrame(ofBaseDraws * frame);
 	
 	ofTexture & getTextureReference();
-	void setUseTexture(bool bUseTex){};
 	
 	void setTextureSize(ofVec2f texureSize, bool reallocate = true);
 	ofVec2f getTextureSize();
