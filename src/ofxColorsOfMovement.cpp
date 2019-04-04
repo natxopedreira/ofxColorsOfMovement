@@ -204,10 +204,11 @@ ofTexture & ofxColorsOfMovement::getTextureReference(){
 	return fbo.getTexture();
 }
 
-void ofxColorsOfMovement::setTextureSize(ofVec2f texureSize, bool reallocate){
-	if(this->texureSize == texureSize) return;
-	this->texureSize = texureSize;
-	
+void ofxColorsOfMovement::setTextureSize(ofVec2f _texureSize, bool reallocate){
+	//if(this->texureSize == texureSize) return;
+	//this->texureSize = texureSize;
+    texureSize = _texureSize;
+    
 	float coordWidth = texureSize.x;//(float)texureSize.x / ofNextPow2(texureSize.x);
 	float coordHeight = texureSize.y;//(float)texureSize.y / ofNextPow2(texureSize.y);
 	

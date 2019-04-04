@@ -155,36 +155,18 @@ static string OFXCM_FRAGMENT_SHADER = STRINGIFY(
  */
 
 
-class ofxColorsOfMovement : public ofBaseHasTexture {
+class ofxColorsOfMovement {
 public:
 	ofxColorsOfMovement();
 	
     ~ofxColorsOfMovement(){}
-    
-    ///////////////////////////
-    /// \returns a reference to the ofTexture.
-    virtual ofTexture & getTexture(){};
-    
-    /// \returns a const reference to the ofTexture.
-    virtual const ofTexture & getTexture() const{};
-    
-    /// \brief Enable or disable internal ofTexture use.
-    /// \param bUseTex true if an ofTexture should be used.
-    virtual void setUseTexture(bool bUseTex){};
-    
-    /// \returns true if an internal ofTexture is being used.
-    virtual bool isUsingTexture() const{};
-    
-    //////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////
-    
     
 	void setup(ofVec2f texSize, unsigned int bufferSize);
 	void addFrame(ofBaseDraws * frame);
 	
 	ofTexture & getTextureReference();
 	
-	void setTextureSize(ofVec2f texureSize, bool reallocate = true);
+	void setTextureSize(ofVec2f _texureSize, bool reallocate = true);
 	ofVec2f getTextureSize();
 	
 	void setBufferSize(unsigned int bufferSize);
